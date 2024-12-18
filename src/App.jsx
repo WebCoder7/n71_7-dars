@@ -1,19 +1,30 @@
-import { Route, Routes } from "react-router-dom";
-import { MainLayout } from "./layout/main-layout";
-import { Login } from "./pages/login";
-import { Home } from "./pages/home";
+import { useState } from "react";
+import { Provider } from "react-redux";
+import store from "./store/store";
+import AddItem from "./components/AddItem";
+import EditItem from "./components/EditItem";
+import ItemList from "./components/ItemList";
+import "./App.css"
 
-function App() {
+const App = () => {
+  const [editingItem, setEditingItem] = useState(null);
+
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/app" element={<MainLayout />}>
-          <Route index element={<Home />} />
-        </Route>
-      </Routes>
-    </>
+    <Provider store={store}>
+      <div className="container">
+
+        <div className="App">
+          <h1>React query redux middleware</h1>
+          {editingItem ? (
+            <EditItem editingItem={editingItem} setEditingItem={setEditingItem} />
+          ) : (
+            <AddItem />
+          )}
+          <ItemList setEditingItem={setEditingItem} />
+        </div>
+      </div>
+    </Provider>
   );
-}
+};
 
 export default App;
