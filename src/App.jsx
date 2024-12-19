@@ -1,29 +1,22 @@
-import { useState } from "react";
-import { Provider } from "react-redux";
-import store from "./store/store";
-import AddItem from "./components/AddItem";
-import EditItem from "./components/EditItem";
-import ItemList from "./components/ItemList";
+import { QueryClient, QueryClientProvider } from "react-query";
+import CreateData from "./components/CreateData";
+import DataList from "./components/DataList";
 import "./App.css"
 
+const queryClient = new QueryClient();
+
 const App = () => {
-  const [editingItem, setEditingItem] = useState(null);
-
   return (
-    <Provider store={store}>
+    <QueryClientProvider client={queryClient}>
       <div className="container">
-
-        <div className="App">
+        <div>
           <h1>React query redux middleware</h1>
-          {editingItem ? (
-            <EditItem editingItem={editingItem} setEditingItem={setEditingItem} />
-          ) : (
-            <AddItem />
-          )}
-          <ItemList setEditingItem={setEditingItem} />
+          <CreateData />
+          <DataList />
         </div>
+
       </div>
-    </Provider>
+    </QueryClientProvider>
   );
 };
 
